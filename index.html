@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Portfolio – R. Laurenne Andrianina</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0a;color:#fff;font-family:'Georgia',serif;}
+.gold{color:#C9A84C;}
+.gold-light{color:#e8c87a;}
+.white{color:#fff;}
+.muted{color:#aaa;}
+hr.gold-line{border:none;border-top:1px solid #C9A84C;margin:1rem auto;width:60px;}
+
+/* LANG TOGGLE */
+.lang-bar{position:sticky;top:0;z-index:100;background:#111;display:flex;justify-content:center;gap:1rem;padding:0.6rem;border-bottom:1px solid #222;}
+.lang-btn{background:transparent;border:1px solid #C9A84C;color:#C9A84C;padding:0.3rem 1.2rem;font-size:13px;cursor:pointer;letter-spacing:1px;}
+.lang-btn.active{background:#C9A84C;color:#000;font-weight:700;}
+.fr-content,.en-content{display:none;}
+.show-fr .fr-content,.show-en .en-content{display:block;}
+.show-fr .bilingual .fr,.show-en .bilingual .en{display:block;}
+.show-fr .bilingual .en,.show-en .bilingual .fr{display:none;}
+.bilingual .fr,.bilingual .en{display:none;}
+
+/* PAGES */
+.page{width:100%;padding:5rem 2rem;text-align:center;border-bottom:1px solid #1a1a1a;}
+
+/* COVER */
+.cover{background:#0a0a0a;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;}
+.cover .subtitle-top{letter-spacing:4px;font-size:13px;color:#C9A84C;font-family:sans-serif;}
+.cover h1{font-size:clamp(2.4rem,6vw,4.5rem);font-weight:900;line-height:1.1;letter-spacing:1px;font-family:sans-serif;}
+.cover .role{font-size:16px;color:#C9A84C;font-family:sans-serif;letter-spacing:2px;}
+.cover .contacts{margin-top:1.5rem;font-size:13px;color:#aaa;font-family:sans-serif;line-height:2;}
+
+/* SECTION DIVIDERS */
+.section-div{background:#0a0a0a;padding:5rem 2rem;text-align:center;}
+.section-div h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:2px;font-family:sans-serif;}
+.section-div .sec-sub{font-size:12px;letter-spacing:4px;color:#C9A84C;font-family:sans-serif;margin-top:0.5rem;}
+
+/* ABOUT */
+.about-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;text-align:left;padding:4rem 2rem;}
+.avatar-placeholder{width:200px;height:200px;border-radius:50%;border:3px solid #C9A84C;background:#1a1a1a;display:flex;align-items:center;justify-content:center;color:#C9A84C;font-size:14px;font-family:sans-serif;margin:0 auto 1.5rem;}
+.about-text h3{font-size:1.4rem;color:#C9A84C;margin-bottom:1rem;font-family:sans-serif;}
+.about-text p{font-size:15px;line-height:1.8;color:#ccc;margin-bottom:1rem;font-family:sans-serif;}
+.about-list{list-style:none;margin-top:1rem;}
+.about-list li{font-size:14px;color:#ccc;padding:0.3rem 0;font-family:sans-serif;}
+.about-list li::before{content:"✓ ";color:#C9A84C;}
+
+/* EXPERTISE CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;max-width:950px;margin:0 auto;padding:1rem 2rem 3rem;}
+.exp-card{background:#111;border:1px solid #222;padding:2rem 1.5rem;text-align:left;transition:border-color .2s;}
+.exp-card:hover{border-color:#C9A84C;}
+.exp-card .icon{font-size:2rem;margin-bottom:1rem;}
+.exp-card h4{color:#C9A84C;font-size:1rem;margin-bottom:0.8rem;font-family:sans-serif;letter-spacing:1px;}
+.exp-card p{color:#aaa;font-size:13px;line-height:1.7;font-family:sans-serif;}
+
+/* TOOLS */
+.tools-grid{display:flex;flex-wrap:wrap;gap:0.6rem;justify-content:center;max-width:900px;margin:1rem auto 3rem;}
+.tool-tag{background:#111;border:1px solid #333;color:#ccc;padding:0.4rem 1rem;font-size:13px;font-family:sans-serif;letter-spacing:0.5px;}
+.tool-section-title{color:#C9A84C;font-size:12px;letter-spacing:3px;text-align:center;margin:2rem 0 0.8rem;font-family:sans-serif;}
+
+/* TIMELINE */
+.timeline{max-width:800px;margin:0 auto;padding:2rem;position:relative;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:#333;transform:translateX(-50%);}
+.t-item{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3rem;position:relative;}
+.t-item .dot{position:absolute;left:50%;top:0.3rem;width:12px;height:12px;background:#C9A84C;border-radius:50%;transform:translateX(-50%);}
+.t-left{text-align:right;padding-right:1.5rem;}
+.t-right{text-align:left;padding-left:1.5rem;}
+.t-date{color:#C9A84C;font-size:1.1rem;font-weight:700;font-family:sans-serif;}
+.t-title{color:#fff;font-size:0.95rem;margin-top:0.3rem;font-family:sans-serif;}
+.t-company{color:#888;font-size:13px;font-family:sans-serif;margin-top:0.2rem;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:700px;margin:2rem auto 3rem;}
+.stat-box{text-align:center;}
+.stat-num{font-size:3.5rem;font-weight:900;color:#C9A84C;line-height:1;font-family:sans-serif;}
+.stat-label{font-size:11px;letter-spacing:3px;color:#888;margin-top:0.5rem;font-family:sans-serif;}
+
+/* KPI TABLE */
+.kpi-table{width:100%;max-width:800px;margin:1rem auto 3rem;border-collapse:collapse;font-family:sans-serif;}
+.kpi-table th{background:#C9A84C;color:#000;padding:0.8rem 1rem;font-size:12px;letter-spacing:2px;text-align:left;}
+.kpi-table td{padding:0.8rem 1rem;font-size:13px;border-bottom:1px solid #1a1a1a;color:#ccc;text-align:left;}
+.kpi-table tr:hover td{background:#111;}
+
+/* QUOTE */
+.quote-page{background:#0a0a0a;padding:6rem 2rem;}
+.blockquote{max-width:800px;margin:0 auto;font-size:clamp(1.1rem,2.5vw,1.6rem);font-style:italic;line-height:1.8;color:#fff;text-align:center;}
+.blockquote::before{content:'"';color:#C9A84C;font-size:4rem;line-height:0.5;vertical-align:-0.6rem;margin-right:0.2rem;}
+.bq-attr{margin-top:1.5rem;color:#C9A84C;font-size:13px;letter-spacing:2px;font-family:sans-serif;}
+
+/* CONTACT */
+.contact-page{background:#0a0a0a;padding:6rem 2rem;text-align:center;}
+.contact-page h2{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;font-family:sans-serif;letter-spacing:2px;}
+.contact-info{margin-top:2.5rem;font-size:14px;color:#C9A84C;font-family:sans-serif;letter-spacing:1px;line-height:2.5;}
+.contact-info .name{font-size:1.2rem;color:#fff;margin-bottom:0.5rem;}
+.contact-info .avail{color:#888;font-size:13px;margin-top:0.5rem;}
+
+/* LANGS */
+.lang-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:500px;margin:1.5rem auto 3rem;font-family:sans-serif;}
+.lang-item{background:#111;border:1px solid #222;padding:1rem 1.5rem;text-align:left;}
+.lang-name{color:#fff;font-size:14px;font-weight:700;}
+.lang-level{color:#C9A84C;font-size:12px;margin-top:0.3rem;}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .about-grid{grid-template-columns:1fr;gap:2rem;}
+  .timeline::before{left:20px;}
+  .t-item{grid-template-columns:1fr;}
+  .t-item .dot{left:20px;}
+  .t-left{text-align:left;padding-left:50px;padding-right:0;}
+  .t-right{padding-left:50px;}
+  .stats-grid{grid-template-columns:1fr;}
+}
+
+/* PRINT */
+@media print{
+  .lang-bar{display:none;}
+  body{background:#fff;color:#000;}
+  .cover{min-height:auto;padding:3rem 2rem;}
+  .gold,.gold-light{color:#8B6914;}
+  .muted{color:#666;}
+  .page,.section-div,.quote-page,.contact-page{border:none;}
+}
+</style>
+</head>
+<body class="show-fr" id="main-body">
+
+<!-- LANG TOGGLE -->
+<div class="lang-bar">
+  <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">🇫🇷 FRANÇAIS</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 ENGLISH</button>
+</div>
+
+<!-- ======= COVER ======= -->
+<div class="page cover">
+  <div class="subtitle-top bilingual">
+    <span class="fr">EXCELLENCE & STRATÉGIE</span>
+    <span class="en">EXCELLENCE & STRATEGY</span>
+  </div>
+  <h1>R. LAURENNE<br>ANDRIANINA</h1>
+  <hr class="gold-line"/>
+  <div class="role bilingual">
+    <span class="fr">Spécialiste Support Client & Assistante Virtuelle Bilingue</span>
+    <span class="en">Bilingual Customer Support Specialist & Virtual Assistant</span>
+  </div>
+  <div class="contacts">
+    Madagascar (Remote Worldwide)<br>
+    laurenneras003@gmail.com<br>
+    +261 34 76 501 15 (WhatsApp / Telegram)
+  </div>
+</div>
+
+<!-- ======= IDENTITY & VISION DIVIDER ======= -->
+<div class="section-div">
+  <div class="bilingual">
+    <h2 class="fr white">IDENTITÉ & VISION</h2>
+    <h2 class="en white">IDENTITY & VISION</h2>
+  </div>
+  <div class="bilingual sec-sub">
+    <span class="fr">DÉFINIR L'EXCELLENCE PAR L'ACTION</span>
+    <span class="en">DEFINING EXCELLENCE THROUGH ACTION</span>
+  </div>
+</div>
+
+<!-- ======= ABOUT ======= -->
+<div class="page" style="background:#0d0d0d;">
+  <div class="about-grid">
+    <div style="text-align:center;">
+      <div class="avatar-placeholder">
+        <span style="font-size:12px;color:#555;">VOTRE<br>PHOTO</span>
+      </div>
+      <div class="lang-grid" style="margin:0 auto;">
+        <div class="lang-item"><div class="lang-name">Malagasy</div><div class="lang-level bilingual"><span class="fr">Langue natale</span><span class="en">Native</span></div></div>
+        <div class="lang-item"><div class="lang-name">Français</div><div class="lang-level">C1 – Courant</div></div>
+        <div class="lang-item"><div class="lang-name">English</div><div class="lang-level">B2 – Professional</div></div>
+        <div class="lang-item"><div class="lang-name">Deutsch</div><div class="lang-level bilingual"><span class="fr">A1 – Débutant</span><span class="en">A1 – Beginner</span></div></div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="bilingual">
+        <div class="fr">
+          <h3>Leader Orientée Client</h3>
+          <p>Passionnée par mon travail, dotée d'un grand sens de l'organisation et de la relation client. Je m'adapte facilement à différentes tâches et m'implique pleinement dans chaque projet au sein d'équipes dynamiques.</p>
+          <p>Mon approche combine fiabilité, communication professionnelle et maîtrise des outils CRM/SaaS les plus avancés.</p>
+          <ul class="about-list">
+            <li>Fiable et autonome — gestion avec minimum de supervision</li>
+            <li>Communication claire, concise et professionnelle</li>
+            <li>Gestion du stress — calme sous pression, orientée solutions</li>
+            <li>Apprentissage rapide — à l'aise avec tout nouvel outil</li>
+          </ul>
+        </div>
+        <div class="en">
+          <h3>Client-Oriented Leader</h3>
+          <p>Passionate about my work, with a strong sense of organization and customer relations. I easily adapt to different tasks and am fully committed to every project within dynamic teams.</p>
+          <p>My approach combines reliability, professional communication, and mastery of the most advanced CRM/SaaS tools.</p>
+          <ul class="about-list">
+            <li>Reliable & autonomous — tasks handled with minimal supervision</li>
+            <li>Clear, concise and professional communication</li>
+            <li>Calm under pressure — strong solution-oriented mindset</li>
+            <li>Fast learner — comfortable with any new tool or system</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= EXPERTISE ======= -->
+<div class="section-div">
+  <div class="bilingual">
+    <h2 class="fr white">DOMAINES D'EXPERTISE</h2>
+    <h2 class="en white">AREAS OF EXPERTISE</h2>
+  </div>
+</div>
+<div class="page" style="background:#0d0d0d;padding-top:3rem;">
+  <div class="cards-grid">
+    <div class="exp-card">
+      <div class="icon gold">◉</div>
+      <h4 class="bilingual"><span class="fr">SUPPORT CLIENT</span><span class="en">CUSTOMER SUPPORT</span></h4>
+      <p class="bilingual">
+        <span class="fr">Email, chat et téléphone. Gestion des tickets, CRM, inbound & outbound.</span>
+        <span class="en">Email, chat and phone. Ticket management, CRM, inbound & outbound calls.</span>
+      </p>
+    </div>
+    <div class="exp-card">
+      <div class="icon gold">◈</div>
+      <h4 class="bilingual"><span class="fr">ASSISTANAT VIRTUEL</span><span class="en">VIRTUAL ASSISTANCE</span></h4>
+      <p class="bilingual">
+        <span class="fr">Coordination administrative, gestion de calendriers, suivi de projets.</span>
+        <span class="en">Administrative coordination, calendar management, project follow-up.</span>
+      </p>
+    </div>
+    <div class="exp-card">
+      <div class="icon gold">◆</div>
+      <h4 class="bilingual"><span class="fr">E-COMMERCE & SAAS</span><span class="en">E-COMMERCE & SAAS</span></h4>
+      <p class="bilingual">
+        <span class="fr">SAV, commandes, remboursements, plateformes Shopify, Zendesk, HubSpot.</span>
+        <span class="en">After-sales, orders, refunds — Shopify, Zendesk, HubSpot platforms.</span>
+      </p>
+    </div>
+    <div class="exp-card">
+      <div class="icon gold">◇</div>
+      <h4 class="bilingual"><span class="fr">IMMOBILIER & HÔTELLERIE</span><span class="en">REAL ESTATE & HOSPITALITY</span></h4>
+      <p class="bilingual">
+        <span class="fr">Gestion des réservations, coordination hôtelière, Airbnb, Hostaway.</span>
+        <span class="en">Booking management, hotel coordination, Airbnb, Hostaway platforms.</span>
+      </p>
+    </div>
+    <div class="exp-card">
+      <div class="icon gold">◎</div>
+      <h4 class="bilingual"><span class="fr">VENTES & FIDÉLISATION</span><span class="en">SALES & RETENTION</span></h4>
+      <p class="bilingual">
+        <span class="fr">Prospection outbound, campagnes de fidélisation, codes promo, closing.</span>
+        <span class="en">Outbound prospecting, loyalty campaigns, promo codes, sales closing.</span>
+      </p>
+    </div>
+    <div class="exp-card">
+      <div class="icon gold">◐</div>
+      <h4 class="bilingual"><span class="fr">INCUBATEUR & COACHING</span><span class="en">INCUBATOR & COACHING</span></h4>
+      <p class="bilingual">
+        <span class="fr">Support client pour programme d'accompagnement entrepreneurial.</span>
+        <span class="en">Client support for entrepreneurial incubator accompaniment programs.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div style="max-width:950px;margin:0 auto;padding:0 2rem 2rem;">
+    <div class="tool-section-title bilingual">
+      <span class="fr">SUPPORT & CRM</span><span class="en">SUPPORT & CRM</span>
+    </div>
+    <div class="tools-grid">
+      <span class="tool-tag">Zendesk</span><span class="tool-tag">Freshdesk</span><span class="tool-tag">360eCRM</span><span class="tool-tag">HubSpot</span><span class="tool-tag">Aircall</span><span class="tool-tag">Ringover</span><span class="tool-tag">TTCall</span><span class="tool-tag">RocketChat</span><span class="tool-tag">Circle</span><span class="tool-tag">Skool</span>
+    </div>
+    <div class="tool-section-title bilingual">
+      <span class="fr">GESTION DE PROJETS & E-COMMERCE</span><span class="en">PROJECT MANAGEMENT & E-COMMERCE</span>
+    </div>
+    <div class="tools-grid">
+      <span class="tool-tag">Asana</span><span class="tool-tag">ClickUp</span><span class="tool-tag">Monday</span><span class="tool-tag">Airtable</span><span class="tool-tag">Google Sheets</span><span class="tool-tag">Confluence</span><span class="tool-tag">Shopify</span><span class="tool-tag">Airbnb</span><span class="tool-tag">Hostaway</span><span class="tool-tag">ChargeAutomation</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======= CAREER DIVIDER ======= -->
+<div class="section-div">
+  <div class="bilingual">
+    <h2 class="fr white">PARCOURS PROFESSIONNEL</h2>
+    <h2 class="en white">PROFESSIONAL JOURNEY</h2>
+  </div>
+</div>
+
+<!-- ======= TIMELINE ======= -->
+<div class="page" style="background:#0d0d0d;padding-top:3rem;">
+  <div class="timeline">
+
+    <div class="t-item">
+      <div class="t-left">
+        <div class="t-date">2013 – 2014</div>
+        <div class="t-title bilingual"><span class="fr">Réceptionniste Polyvalente</span><span class="en">Versatile Receptionist</span></div>
+        <div class="t-company bilingual"><span class="fr">Complexe Hôtelier</span><span class="en">Hotel Complex</span></div>
+      </div>
+      <div class="dot"></div>
+      <div class="t-right" style="padding-top:0.4rem;">
+        <p class="muted" style="font-size:13px;font-family:sans-serif;line-height:1.7;" class="bilingual">
+          <span class="fr">Accueil clients, gestion des réservations, attribution des chambres, facturation et agenda.</span>
+          <span class="en">Guest reception, reservation & room management, billing and scheduling.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-left">
+        <div class="t-date">2014 – 2015</div>
+        <div class="t-title bilingual"><span class="fr">Commerciale Grand Public</span><span class="en">Consumer Sales Rep.</span></div>
+        <div class="t-company bilingual"><span class="fr">Réseaux, Radio & TV par Satellite</span><span class="en">Satellite TV & Radio Networks</span></div>
+      </div>
+      <div class="dot"></div>
+      <div class="t-right" style="padding-top:0.4rem;">
+        <p class="muted" style="font-size:13px;font-family:sans-serif;line-height:1.7;">
+          <span class="fr bilingual">Prospection, ventes, tenue de caisse, SAV et veille concurrentielle.</span>
+          <span class="en bilingual">Prospecting, sales closing, billing, after-sales & competitive intelligence.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-left">
+        <div class="t-date">2016 – 2017</div>
+        <div class="t-title bilingual"><span class="fr">Assistante Commerciale & de Direction</span><span class="en">Sales & Executive Assistant</span></div>
+        <div class="t-company bilingual"><span class="fr">Société de Grande Distribution</span><span class="en">Large Distribution Company</span></div>
+      </div>
+      <div class="dot"></div>
+      <div class="t-right" style="padding-top:0.4rem;">
+        <p class="muted" style="font-size:13px;font-family:sans-serif;line-height:1.7;">
+          <span class="fr bilingual">Interface client/direction, organisation et gestion hiérarchique du département (18 mois).</span>
+          <span class="en bilingual">Client-management interface, departmental operations and hierarchical organization (18 months).</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-left">
+        <div class="t-date">2019 – 2025</div>
+        <div class="t-title bilingual"><span class="fr">Support Client & Assistante Virtuelle</span><span class="en">Customer Support & Virtual Assistant</span></div>
+        <div class="t-company">Freelance — Remote Worldwide</div>
+      </div>
+      <div class="dot"></div>
+      <div class="t-right" style="padding-top:0.4rem;">
+        <p class="muted" style="font-size:13px;font-family:sans-serif;line-height:1.7;">
+          <span class="fr bilingual">E-commerce, SaaS, immobilier, hôtellerie. Clients en France, USA, Suisse, Allemagne, Dubaï, Turquie.</span>
+          <span class="en bilingual">E-commerce, SaaS, real estate, hospitality. Clients across France, USA, Switzerland, Germany, Dubai, Turkey.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-left">
+        <div class="t-date gold" style="font-size:1.3rem;">Sep 2025 – Aujourd'hui</div>
+        <div class="t-title bilingual"><span class="fr">Assistante Support Client</span><span class="en">Customer Support Assistant</span></div>
+        <div class="t-company">Entrepreneurs.com</div>
+      </div>
+      <div class="dot" style="background:#e8c87a;width:16px;height:16px;top:0.15rem;"></div>
+      <div class="t-right" style="padding-top:0.4rem;">
+        <p class="muted" style="font-size:13px;font-family:sans-serif;line-height:1.7;">
+          <span class="fr bilingual">Programme d'incubateur et accompagnement entrepreneurial. Coordination avec coachs, communication client, suivi des sessions.</span>
+          <span class="en bilingual">Incubator program & entrepreneurial coaching support. Coordination with coaches, client communications, session follow-ups.</span>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======= STATS ======= -->
+<div class="page" style="background:#0a0a0a;">
+  <div class="section-div" style="padding:3rem 2rem 1rem;">
+    <div class="bilingual">
+      <h2 class="fr white">CHIFFRES CLÉS</h2>
+      <h2 class="en white">KEY FIGURES</h2>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-num">6+</div>
+      <div class="stat-label bilingual"><span class="fr">ANNÉES D'EXPÉRIENCE REMOTE</span><span class="en">YEARS REMOTE EXPERIENCE</span></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">10+</div>
+      <div class="stat-label bilingual"><span class="fr">SECTEURS D'ACTIVITÉ</span><span class="en">INDUSTRY SECTORS</span></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4</div>
+      <div class="stat-label bilingual"><span class="fr">LANGUES MAÎTRISÉES</span><span class="en">LANGUAGES MASTERED</span></div>
+    </div>
+  </div>
+
+  <!-- KPI TABLE -->
+  <div style="max-width:800px;margin:1rem auto;padding:0 1rem 3rem;">
+    <p class="gold" style="text-align:center;letter-spacing:3px;font-size:12px;font-family:sans-serif;margin-bottom:1rem;" class="bilingual">
+      <span class="fr bilingual">SECTEURS TRAVAILLÉS</span><span class="en bilingual">SECTORS WORKED IN</span>
+    </p>
+    <table class="kpi-table">
+      <tr>
+        <th class="bilingual"><span class="fr">SECTEUR</span><span class="en">SECTOR</span></th>
+        <th class="bilingual"><span class="fr">MISSIONS</span><span class="en">TASKS</span></th>
+        <th class="bilingual"><span class="fr">OUTILS</span><span class="en">TOOLS</span></th>
+      </tr>
+      <tr><td>E-Commerce</td><td class="bilingual"><span class="fr">SAV, commandes, fidélisation</span><span class="en">After-sales, orders, retention</span></td><td>Shopify, Zendesk</td></tr>
+      <tr><td>SaaS / Tech</td><td class="bilingual"><span class="fr">Tickets, helpdesk</span><span class="en">Tickets, helpdesk</span></td><td>Freshdesk, HubSpot</td></tr>
+      <tr><td class="bilingual"><span class="fr">Immobilier / Hôtellerie</span><span class="en">Real Estate / Hospitality</span></td><td class="bilingual"><span class="fr">Réservations, coordination</span><span class="en">Bookings, coordination</span></td><td>Airbnb, Hostaway</td></tr>
+      <tr><td class="bilingual"><span class="fr">Mode & Vêtements</span><span class="en">Fashion & Clothing</span></td><td class="bilingual"><span class="fr">Fidélisation, codes promo</span><span class="en">Loyalty, promo codes</span></td><td>Ringover, Aircall</td></tr>
+      <tr><td class="bilingual"><span class="fr">Coaching / Incubateur</span><span class="en">Coaching / Incubator</span></td><td class="bilingual"><span class="fr">Support client, suivi</span><span class="en">Client support, follow-up</span></td><td>Circle, Skool, Asana</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======= QUOTE ======= -->
+<div class="quote-page">
+  <p class="blockquote bilingual">
+    <span class="fr">L'excellence n'est pas un acte, mais une habitude. Elle se forge dans la rigueur du détail et la clarté de la vision stratégique.</span>
+    <span class="en">Excellence is not an act, but a habit. It is forged through the rigor of detail and the clarity of strategic vision.</span>
+  </p>
+  <div class="bq-attr">— VISION & EXÉCUTION</div>
+</div>
+
+<!-- ======= CONTACT ======= -->
+<div class="contact-page">
+  <h2 class="bilingual">
+    <span class="fr white">COLLABORONS</span>
+    <span class="en white">LET'S WORK<br>TOGETHER</span>
+  </h2>
+  <hr class="gold-line" style="margin-top:2rem;"/>
+  <div class="contact-info">
+    <div class="name">R. LAURENNE ANDRIANINA</div>
+    <div class="bilingual">
+      <span class="fr">Spécialiste Support Client & Assistante Virtuelle Bilingue</span>
+      <span class="en">Bilingual Customer Support Specialist & Virtual Assistant</span>
+    </div><br>
+    laurenneras003@gmail.com<br>
+    +261 34 76 501 15 (WhatsApp / Telegram)<br>
+    <div class="avail bilingual">
+      <span class="fr">Disponible full-time ou part-time · Flexible selon fuseaux horaires</span>
+      <span class="en">Available full-time or part-time · Flexible across time zones</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function setLang(lang){
+  var body=document.getElementById('main-body');
+  body.className='show-'+lang;
+  document.getElementById('btn-fr').className='lang-btn'+(lang==='fr'?' active':'');
+  document.getElementById('btn-en').className='lang-btn'+(lang==='en'?' active':'');
+}
+</script>
+</body>
+</html>
